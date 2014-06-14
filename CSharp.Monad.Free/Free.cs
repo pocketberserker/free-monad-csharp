@@ -76,7 +76,7 @@ namespace CSharp.Monad
             var current = this;
             while (true)
             {
-                var ret = current.Resume<X1, X2>(g).Match<Tuple<bool, object>>(
+                var ret = current.Resume<X1, X2>(g).Match(
                     l => Tuple.Create(false,(object) f(l)),
                     r => Tuple.Create(true,(object) r));
                 if (ret._1()) return (A)ret._2();
