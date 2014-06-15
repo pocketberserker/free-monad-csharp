@@ -12,9 +12,9 @@ namespace CSharp.Monad.Tests
         public static Free<F0, decimal> Fib(decimal n)
         {
             if (n < 2M) return FreeModule.Done<F0, decimal>(n);
-            return Trampoline.Suspend(() => Fib(n - 1))
-                .SelectMany(x => Trampoline.Suspend(() => Fib(n - 2))
-                    .Select(y => x + y));
+            return from x in Trampoline.Suspend(() => Fib(n - 1))
+                   from y in Trampoline.Suspend(() => Fib(n - 2))
+                   select x + y;
         }
 
         [Test]

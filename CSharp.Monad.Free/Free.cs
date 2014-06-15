@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LangExt;
+using System.ComponentModel;
 
 namespace CSharp.Monad
 {
@@ -21,6 +22,12 @@ namespace CSharp.Monad
         public static Free<G, B> Suspend<G, B>(_1<G, Free<G, B>> b)
         {
             return new Suspend<G, B>(b);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Free<G, V> SelectMany<G, T, U, V>(this Free<G, T> self, Func<T, Free<G, U>> f, Func<T, U, V> g)
+        {
+            return self.SelectMany(x => f(x).SelectMany(y => Done<G, V>(g(x, y))));
         }
     }
 
