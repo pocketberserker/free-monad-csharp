@@ -11,7 +11,7 @@ namespace CSharp.Monad
 
         public _1<F0, B> Map<A, B>(Func<A, B> f, _1<F0, A> fa)
         {
- 	          return F0.Wrap(() => f((fa as F0<A>).Apply()));
+            return F0.Wrap(() => f((fa as F0<A>).Apply()));
         }
     }
 
